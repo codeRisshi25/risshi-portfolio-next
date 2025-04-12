@@ -1,27 +1,25 @@
 "use client"
 
-import { useState, useEffect } from "react"
+
+import { useState, useEffect, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Loader2 } from "lucide-react"
 import { useTheme } from "next-themes"
 
 export default function PageLoader() {
-  const [progress, setProgress] = useState(0)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const [statusMessages, setStatusMessages] = useState<string[]>([])
   const { theme } = useTheme()
 
-  const serverStatusMessages = [
+  const serverStatusMessages = useMemo(() => [
     "Initializing system...",
-    "Establishing secure connection...",
-    "Loading environment variables...",
-    "Starting backend services...",
-    "Connecting to database...",
-    "Verifying API endpoints...",
-    "Optimizing response time...",
-    "Caching resources...",
-    "Finalizing startup sequence...",
-    "System ready!",
-  ]
+    "Loading dependencies...",
+    "Connecting to servers...",
+    "Mounting file systems...",
+    "Validating user credentials...",
+    "Setting up environment...",
+    "Launching application..."
+  ], [])
 
   useEffect(() => {
     let currentProgress = 0
@@ -32,7 +30,7 @@ export default function PageLoader() {
         // Increment by random amount between 5-15
         const increment = Math.floor(Math.random() * 10) + 15
         currentProgress = Math.min(100, currentProgress + increment)
-        setProgress(currentProgress)
+        setLoadingProgress(currentProgress)
 
         // Add new status message at certain progress points
         if (currentProgress > messageIndex * 10 && messageIndex < serverStatusMessages.length) {
@@ -62,13 +60,13 @@ export default function PageLoader() {
         <div className="mb-4">
           <div className="flex justify-between text-sm font-mono mb-2">
             <span className="text-muted-foreground">Loading progress</span>
-            <span className="text-terminal-blue">{progress}%</span>
+            <span className="text-terminal-blue">{loadingProgress}%</span>
           </div>
           <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-r from-terminal-blue to-terminal-cyan"
               initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
+              animate={{ width: `${loadingProgress}%` }}
               transition={{ duration: 0.3 }}
             />
           </div>
@@ -96,7 +94,7 @@ export default function PageLoader() {
             </motion.div>
           ))}
 
-          {progress < 100 && (
+          {loadingProgress < 100 && (
             <div className="flex items-center">
               <span className="text-terminal-blue mr-2">&gt;</span>
               <span className="animate-pulse">_</span>

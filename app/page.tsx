@@ -17,6 +17,20 @@ import { useTheme } from "next-themes"
 // GitHub username
 const GITHUB_USERNAME = "codeRisshi25"
 
+// Add this interface near the top of your file
+interface GitHubRepo {
+  id: number;           // Add this missing property
+  name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  topics: string[];
+  fork: boolean;
+  stargazers_count: number;
+  forks_count: number; // Add this missing property
+  language: string | null; // Add this missing property
+}
+
 export default function Home() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,10 +55,10 @@ export default function Home() {
 
         // Filter out forked repos and get top 4 by stars
         const topProjects = allRepos
-          .filter((repo) => !repo.fork)
-          .sort((a, b) => b.stargazers_count - a.stargazers_count)
+          .filter((repo: GitHubRepo) => !repo.fork)
+          .sort((a: GitHubRepo, b: GitHubRepo) => b.stargazers_count - a.stargazers_count)
           .slice(0, 4)
-          .map((repo) => ({
+          .map((repo: GitHubRepo) => ({
             id: repo.id,
             title: repo.name,
             description: repo.description || "No description provided",
@@ -59,8 +73,6 @@ export default function Home() {
         setProjects(topProjects)
       } catch (error) {
         console.error("Error fetching GitHub projects:", error)
-        // Use fallback projects
-        setProjects(getFallbackProjects())
       } finally {
         // Simulate longer loading for the loader to be visible
         setTimeout(() => {
@@ -128,8 +140,12 @@ export default function Home() {
   )
 }
 
-function getProjectCategory(language) {
-  const mapping = {
+interface LanguageToCategory {
+  [key: string]: string;
+}
+
+function getProjectCategory(language: string | null): string {
+  const mapping: LanguageToCategory = {
     JavaScript: "Backend",
     TypeScript: "Backend",
     Python: "AI",
@@ -143,7 +159,7 @@ function getProjectCategory(language) {
     "C++": "Systems",
   }
 
-  return mapping[language] || "Backend"
+  return language ? (mapping[language] || "Backend") : "Backend"
 }
 
 function getFallbackProjects() {
