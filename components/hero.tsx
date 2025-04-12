@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Typed from "typed.js"
 import ServerRack from "@/components/server-rack"
+import Image from 'next/image';
 
 export default function Hero() {
   const typedElement = useRef<HTMLSpanElement>(null)
@@ -59,7 +60,13 @@ export default function Hero() {
           {/* Mobile-only profile image */}
           <div className="flex justify-center lg:hidden mb-8">
             <div className="relative w-40 h-40 rounded-full overflow-hidden border-2 border-terminal-blue/30 dark:border-terminal-green/30 shadow-glow-md">
-              <img src="/me.jpeg" alt="Risshi Raj Sen" className="object-cover w-full h-full" />
+              <Image
+                src="/me.jpeg"
+                alt="Risshi Raj Sen"
+                fill
+                className="object-cover"
+                priority
+              />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/20"></div>
             </div>
           </div>
@@ -135,18 +142,24 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="h-[500px] relative hidden lg:block"
-          >
+        >
           {/* Profile image - enhanced version */}
           <div className="absolute inset-0 bg-gradient-to-r from-terminal-blue/10 to-terminal-cyan/10 dark:from-terminal-green/10 dark:to-terminal-cyan/10 rounded-lg border border-terminal-blue/30 dark:border-terminal-green/30 overflow-hidden p-6 flex flex-col justify-between">
             <div className="flex justify-center">
-                <div className="relative w-48 h-48 rounded-full overflow-hidden border-2 border-terminal-blue/30 dark:border-terminal-green/30 shadow-glow-md">
-                <img src="/me.jpeg" alt="Risshi Raj Sen" className="object-cover w-full h-full" />
+              <div className="relative w-48 h-48 rounded-full overflow-hidden border-2 border-terminal-blue/30 dark:border-terminal-green/30 shadow-glow-md">
+                <Image
+                  src="/me.jpeg"
+                  alt="Risshi Raj Sen"
+                  fill
+                  className="object-cover"
+                  priority
+                />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/20"></div>
-                </div>
+              </div>
             </div>
 
             {/* Server rack visualization */}
-              <ServerRack />
+            <ServerRack />
 
             {/* Overlay elements for terminal effect */}
             <div className="absolute top-4 left-4 font-mono text-xs text-terminal-blue dark:text-terminal-green opacity-70">
