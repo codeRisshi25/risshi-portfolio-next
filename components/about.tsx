@@ -48,17 +48,17 @@ export default function About() {
 
             <div className="space-y-4 md:space-y-6 text-muted-foreground">
               <p>
-                Hey! I'm a second-year Computer Science and Technology undergrad with a passion for all things tech. My
+                Hey! I&apos;m a second-year Computer Science and Technology undergrad with a passion for all things tech. My
                 interests span across backend development, AI, blockchain, 3D modeling, and computer graphics.
               </p>
 
               <p className="hidden md:block">
-                I love building things that work behind the scenes, whether it's APIs, smart contracts, or rendering
-                engines. I'm also super into gaming (both playing and geeking out over how they're made), and I have a
+                I love building things that work behind the scenes, whether it&apos;s APIs, smart contracts, or rendering
+                engines. I&apos;m also super into gaming (both playing and geeking out over how they&apos;re made), and I have a
                 soft spot for cats — the real-life ones and the ones made of polygons.
               </p>
 
-              <p>Always exploring, always learning, and always curious. Let's build something cool.</p>
+              <p>Always exploring, always learning, and always curious. Let&apos;s build something cool.</p>
 
               <div className="pt-4 md:pt-6">
                 <Button

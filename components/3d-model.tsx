@@ -8,13 +8,16 @@ export default function ThreeDModel() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!containerRef.current) return
+    // Store the current value in a variable
+    const currentContainer = containerRef.current;
+    
+    if (!currentContainer) return
 
     // Scene setup
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(
       75,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
+      currentContainer.clientWidth / currentContainer.clientHeight,
       0.1,
       1000,
     )
@@ -22,9 +25,9 @@ export default function ThreeDModel() {
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight)
+    renderer.setSize(currentContainer.clientWidth, currentContainer.clientHeight)
     renderer.setPixelRatio(window.devicePixelRatio)
-    containerRef.current.appendChild(renderer.domElement)
+    currentContainer.appendChild(renderer.domElement)
 
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement)
@@ -89,18 +92,18 @@ export default function ThreeDModel() {
 
     // Handle resize
     const handleResize = () => {
-      if (!containerRef.current) return
+      if (!currentContainer) return
 
-      camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight
+      camera.aspect = currentContainer.clientWidth / currentContainer.clientHeight
       camera.updateProjectionMatrix()
-      renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight)
+      renderer.setSize(currentContainer.clientWidth, currentContainer.clientHeight)
     }
 
     window.addEventListener("resize", handleResize)
 
     return () => {
-      if (containerRef.current) {
-        containerRef.current.removeChild(renderer.domElement)
+      if (currentContainer) {
+        currentContainer.removeChild(renderer.domElement)
       }
       window.removeEventListener("resize", handleResize)
     }

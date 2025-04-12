@@ -101,6 +101,9 @@ export default function Contact() {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Have a question or want to work together? Feel free to reach out!
           </p>
+          <p className="text-muted-foreground mb-8">
+            Let&apos;s connect! I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+          </p>
         </motion.div>
 
         <motion.div
@@ -311,6 +314,9 @@ export default function Contact() {
                     There was an error sending your message. Please try again.
                   </div>
                 )}
+                <p className="text-center text-muted-foreground mt-2">
+                  I&apos;ll get back to you as soon as possible. Thanks for reaching out!
+                </p>
               </div>
             </form>
           </motion.div>
