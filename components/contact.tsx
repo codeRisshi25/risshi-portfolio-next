@@ -280,7 +280,7 @@ export default function Contact() {
                     )}
                   </button>
 
-                  {formState.errors && formState.errors.length > 0 && (
+                  {formState.errors && (
                     <div className="p-2 sm:p-3 rounded-md bg-red-500/10 text-red-500 border border-red-500/30 text-xs sm:text-sm">
                       There was an error sending your message. Please check the form and try again.
                     </div>
