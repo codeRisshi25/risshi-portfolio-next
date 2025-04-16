@@ -74,7 +74,7 @@ export default function CursorGlow() {
   return (
     <>
       <div
-        className="cursor-dot"
+        className="cursor-dot pointer-events-none"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
@@ -84,7 +84,7 @@ export default function CursorGlow() {
         }}
       />
       <div
-        className="cursor-ring"
+        className="cursor-ring pointer-events-none"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,

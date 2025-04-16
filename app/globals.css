@@ -1,8 +1,7 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 @layer base {
   :root {
@@ -46,9 +45,6 @@
 
     /* Keep terminal green for terminal interface in light mode */
     --terminal-green: 142 76% 36%;
-
-    --font-inter: 'Inter', sans-serif;
-    --font-jetbrains-mono: 'JetBrains Mono', monospace;
   }
 
   .dark {
@@ -100,7 +96,6 @@
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
-    font-family: var(--font-inter);
   }
 
   h1,
@@ -218,6 +213,34 @@
 
   .cursor-glow {
     cursor: none;
+  }
+
+  /* Ensure cursor elements don't block interactions */
+  .cursor-dot,
+  .cursor-ring {
+    pointer-events: none !important;
+    z-index: 9999;
+  }
+
+  /* Ensure form elements are always interactive */
+  .cursor-glow input,
+  .cursor-glow textarea,
+  .cursor-glow button,
+  .cursor-glow a,
+  .cursor-glow select {
+    cursor: auto;
+    pointer-events: auto !important;
+  }
+
+  .cursor-glow input,
+  .cursor-glow textarea {
+    cursor: text;
+  }
+
+  .cursor-glow button,
+  .cursor-glow a,
+  .cursor-glow select {
+    cursor: pointer;
   }
 
   /* Skill icon styles */
@@ -470,4 +493,34 @@
 /* Theme transition for all elements */
 * {
   @apply transition-colors duration-300;
+}
+
+/* Ensure form elements are interactive */
+input,
+textarea,
+button,
+select,
+a {
+  pointer-events: auto !important;
+}
+
+/* Fix for any potential overlay issues */
+form,
+.card-minimal {
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure cursor shows properly on interactive elements */
+input,
+textarea,
+button,
+select,
+a {
+  cursor: pointer;
+}
+
+input,
+textarea {
+  cursor: text;
 }

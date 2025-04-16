@@ -135,7 +135,7 @@ export default function TerminalPage() {
           return [
             "{",
             '  "name": "Risshi Raj Sen",',
-            '  "email": "risshi@is-a.dev",',
+            '  "email": "risshirajsen@gmail.com",',
             '  "phone": "+91 8822327893",',
             '  "location": "Noida, India"',
             "}",

@@ -6,32 +6,32 @@ import { Calendar, ExternalLink } from "lucide-react"
 
 const certifications = [
   {
-    title: "AWS Certified Solutions Architect",
-    issuer: "Amazon Web Services",
-    date: "January 2023",
-    icon: "fa-brands fa-aws",
-    link: "https://aws.amazon.com/certification/",
+    title: "Database Design and Basic SQL in PostgreSQL",
+    issuer: "University of Michigan",
+    date: "August 2024",
+    icon: "fa-solid fa-database",
+    link: "#", // Replace with the actual link if available
   },
   {
-    title: "Certified Kubernetes Administrator",
-    issuer: "Cloud Native Computing Foundation",
-    date: "March 2023",
-    icon: "fa-solid fa-dharmachakra",
-    link: "https://www.cncf.io/certification/cka/",
+    title: "Introduction to Machine Learning",
+    issuer: "Duke University",
+    date: "August 2024",
+    icon: "fa-solid fa-brain",
+    link: "#", // Replace with the actual link if available
   },
   {
-    title: "MongoDB Certified Developer",
-    issuer: "MongoDB University",
-    date: "June 2022",
+    title: "Introduction to MongoDB",
+    issuer: "MongoDB",
+    date: "August 2024",
     icon: "fa-solid fa-leaf",
-    link: "https://university.mongodb.com/certification",
+    link: "#", // Replace with the actual link if available
   },
   {
-    title: "Professional Scrum Master I",
-    issuer: "Scrum.org",
-    date: "September 2022",
-    icon: "fa-solid fa-users",
-    link: "https://www.scrum.org/professional-scrum-certifications",
+    title: "Linux Commands and Shell Scripting",
+    issuer: "IBM",
+    date: "August 2024",
+    icon: "fa-brands fa-linux",
+    link: "#", // Replace with the actual link if available
   },
 ]
 

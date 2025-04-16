@@ -43,41 +43,71 @@ export default function Home() {
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
-
     // Fetch GitHub projects
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=10`)
-
-        if (!res.ok) throw new Error("Failed to fetch projects")
-
-        const allRepos = await res.json()
-
-        // Filter out forked repos and get top 4 by stars
-        const topProjects = allRepos
-          .filter((repo: GitHubRepo) => !repo.fork)
-          .sort((a: GitHubRepo, b: GitHubRepo) => b.stargazers_count - a.stargazers_count)
-          .slice(0, 4)
-          .map((repo: GitHubRepo) => ({
-            id: repo.id,
-            title: repo.name,
-            description: repo.description || "No description provided",
-            github: repo.html_url,
-            demo: `${repo.html_url}/demo`,
-            tags: [repo.language].filter(Boolean).concat(["Backend", "API"]),
-            category: getProjectCategory(repo.language),
-            stars: repo.stargazers_count,
-            forks: repo.forks_count,
-          }))
-
-        setProjects(topProjects)
+      // Define specific projects you want to show (limit to 4 total)
+      const backendProjects = ["rashtriya-swasthya-sanrakshan-backend", "bittorent-clientNodeJS", "redis-cpp"];
+      const aiProjects = ["MyMeds-AI", "autism-syndrome-detection-model"];
+      const otherProjects = ["NerdType-typeracer", "openGL-learn"];
+      
+      // Only select 4 total projects, distributed across categories
+      const specificRepoNames = [
+        ...backendProjects.slice(0, 2),  // 2 backend projects
+        ...aiProjects.slice(0, 1),       // 1 AI project
+        ...otherProjects.slice(0, 1)     // 1 other project
+      ];
+      
+      let projectsToShow = [];
+      
+      // Fetch from GitHub but only show specific repos
+      const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`);
+      
+      if (!res.ok) throw new Error("Failed to fetch projects");
+      
+      const allRepos = await res.json();
+      
+      // Filter to only include the specific repos and assign custom categories
+      projectsToShow = allRepos
+        .filter((repo: GitHubRepo) => specificRepoNames.includes(repo.name))
+        .map((repo: GitHubRepo) => {
+        let category = "Other";
+        if (backendProjects.includes(repo.name)) {
+          category = "Backend";
+        } else if (aiProjects.includes(repo.name)) {
+          category = "AI";
+        } else {
+          category = "Others"; // Changed from "Systems" to "Other"
+        }
+        
+        return {
+          id: repo.id,
+          title: repo.name,
+          description: repo.description || "No description provided",
+          github: repo.html_url,
+          demo: repo.homepage || `${repo.html_url}/demo`,
+          tags: [repo.language, ...repo.topics.slice(0, 3)].filter(Boolean),
+          category: category,
+          stars: repo.stargazers_count,
+          forks: repo.forks_count,
+        };
+        });
+      
+      // If no specific projects found or API fails, fall back to hardcoded projects
+      if (projectsToShow.length === 0) {
+        projectsToShow = getFallbackProjects();
+      }
+      
+      setProjects(projectsToShow);
       } catch (error) {
-        console.error("Error fetching GitHub projects:", error)
+      console.error("Error fetching GitHub projects:", error);
+      // Use fallback projects if there's an error
+      setProjects(getFallbackProjects());
       } finally {
-        // Simulate longer loading for the loader to be visible
-        setTimeout(() => {
-          setLoading(false)
-        }, 3000)
+      // Simulate longer loading for the loader to be visible
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
       }
     }
 
@@ -86,7 +116,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
-  }, [])
+    }, [])
 
   if (loading) {
     return <PageLoader />

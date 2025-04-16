@@ -45,7 +45,7 @@ export default function Projects({ projects }) {
         return Server
       case "AI":
         return Code
-      case "Systems":
+      case "Others":
         return Database
       default:
         return Cloud
@@ -69,7 +69,7 @@ export default function Projects({ projects }) {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 mt-8">
-            {["All", "Backend", "AI", "Systems"].map((filter) => (
+            {["All", "Backend", "AI", "Others"].map((filter) => (
               <Button
                 key={filter}
                 variant={activeFilter === filter ? "default" : "outline"}
