@@ -90,9 +90,9 @@ export default function TerminalPage() {
     ],
     contact: () => [
       "Contact Information:",
-      "  • Email: risshi@is-a.dev",
-      "  • Phone: +91 9876543210",
-      "  • Location: Bangalore, India",
+      "  • Email: risshirajsen@gmail.cp,",
+      "  • Phone: +91 8822327893",
+      "  • Location: Greater Noida, India",
     ],
     social: () => [
       "Social Media:",
@@ -474,7 +474,7 @@ export default function TerminalPage() {
               <div className="terminal-dot bg-yellow-500"></div>
               <div className="terminal-dot bg-green-500"></div>
             </div>
-            <div className="font-mono text-xs text-terminal-green">risshi@is-a.dev:~</div>
+            <div className="font-mono text-xs text-terminal-green">risshi.codes:~</div>
           </div>
 
           <div

@@ -141,7 +141,7 @@ export default function Contact() {
 }`}
                 </pre>
 
-                <p className="terminal-prompt">ssh-keygen -t rsa -b 4096 -C "risshi@is-a.dev"</p>
+                <p className="terminal-prompt">ssh-keygen -t rsa -b 4096 -C "risshi.codes"</p>
                 <p className="pl-4 text-terminal-blue dark:text-terminal-green">
                   Generating public/private rsa key pair.
                   <br />
@@ -158,7 +158,7 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex items-center space-x-3">
                     <Mail className="h-5 w-5 text-terminal-blue dark:text-terminal-green" />
-                    <span className="text-sm">risshi@is-a.dev</span>
+                    <span className="text-sm">risshi.codes</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="h-5 w-5 text-terminal-blue dark:text-terminal-green" />

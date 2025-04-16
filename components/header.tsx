@@ -46,12 +46,12 @@ export default function Header() {
           className="flex items-center gap-2"
         >
           <div className="h-8 w-8 rounded-md bg-gradient-to-br from-terminal-blue via-terminal-cyan to-terminal-blue flex items-center justify-center text-background font-bold">
-            RS
+            RRS
           </div>
           <Link href="/" className="font-mono text-xl font-bold">
             <span className="text-terminal-blue">risshi</span>
-            <span className="text-foreground">@</span>
-            <span className="text-terminal-cyan">is-a.dev</span>
+            <span className="text-foreground">.</span>
+            <span className="text-terminal-cyan">codes</span>
             <span className="text-foreground animate-blink">_</span>
           </Link>
         </motion.div>

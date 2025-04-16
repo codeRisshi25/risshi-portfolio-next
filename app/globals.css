@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
 @layer base {
   :root {
     /* Light mode colors */
@@ -44,6 +46,9 @@
 
     /* Keep terminal green for terminal interface in light mode */
     --terminal-green: 142 76% 36%;
+
+    --font-inter: 'Inter', sans-serif;
+    --font-jetbrains-mono: 'JetBrains Mono', monospace;
   }
 
   .dark {
@@ -95,6 +100,7 @@
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
+    font-family: var(--font-inter);
   }
 
   h1,

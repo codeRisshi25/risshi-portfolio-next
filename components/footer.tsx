@@ -112,9 +112,9 @@ export default function Footer() {
               </motion.a>
             </div>
             <p className="text-sm text-muted-foreground">
-              Email: risshi@is-a.dev
+              Email: risshirajsen@gmail.com
               <br />
-              Available for freelance and collaboration
+              Available for Interships and collaboration
             </p>
           </div>
         </div>
