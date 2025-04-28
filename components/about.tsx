@@ -65,7 +65,7 @@ export default function About() {
                   asChild
                   className="bg-gradient-to-r from-terminal-blue to-terminal-cyan hover:from-terminal-cyan hover:to-terminal-blue dark:from-terminal-green dark:to-terminal-cyan dark:hover:from-terminal-cyan dark:hover:to-terminal-green transition-all duration-300 shadow-glow-sm hover:shadow-glow-md"
                 >
-                  <Link href="/risshi-raj-sen-resume.pdf" download>
+                  <Link href="./risshi-resume.pdf" download>
                     <Download className="mr-2 h-4 w-4" /> Download Resume
                   </Link>
                 </Button>

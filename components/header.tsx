@@ -95,7 +95,7 @@ export default function Header() {
               asChild
               className="bg-gradient-to-r from-terminal-blue to-terminal-cyan hover:from-terminal-cyan hover:to-terminal-blue transition-all duration-300 shadow-glow-sm hover:shadow-glow-md"
             >
-              <Link href="/risshi-raj-sen-resume.pdf" download>
+              <Link href="/risshi-resume.pdf" download>
                 <Download className="mr-2 h-4 w-4" /> Resume
               </Link>
             </Button>
@@ -115,7 +115,7 @@ export default function Header() {
               <span className="sr-only">GitHub</span>
             </motion.a>
             <motion.a
-              href="https://linkedin.com/in/risshirajsen"
+              href="https://linkedin.com/in/risshi"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -2, color: "#00b7ff" }}
@@ -123,16 +123,6 @@ export default function Header() {
             >
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
-            </motion.a>
-            <motion.a
-              href="https://twitter.com/risshirajsen"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -2, color: "#00b7ff" }}
-              className="text-muted-foreground hover:text-terminal-blue transition-colors"
-            >
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
             </motion.a>
           </div>
         </motion.nav>
@@ -163,7 +153,7 @@ export default function Header() {
               asChild
               className="bg-gradient-to-r from-terminal-blue to-terminal-cyan hover:from-terminal-cyan hover:to-terminal-blue transition-all duration-300 shadow-glow-sm hover:shadow-glow-md mt-2"
             >
-              <Link href="/risshi-raj-sen-resume.pdf" download>
+              <Link href="/risshi-resume.pdf" download>
                 <Download className="mr-2 h-4 w-4" /> Download Resume
               </Link>
             </Button>
@@ -179,22 +169,13 @@ export default function Header() {
                 <span className="sr-only">GitHub</span>
               </a>
               <a
-                href="https://linkedin.com/in/risshirajsen"
+                href="https://linkedin.com/in/risshi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-terminal-blue transition-colors"
               >
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
-              </a>
-              <a
-                href="https://twitter.com/risshirajsen"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-terminal-blue transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
               </a>
             </div>
           </nav>

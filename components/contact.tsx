@@ -128,7 +128,7 @@ export default function Contact() {
                     <span className="sr-only">GitHub</span>
                   </a>
                   <a
-                    href="https://linkedin.com/in/risshi-is-a-sdev"
+                    href="https://linkedin.com/in/risshi"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1.5 sm:p-2 rounded-full bg-terminal-blue/10 dark:bg-terminal-green/10 text-terminal-blue dark:text-terminal-green hover:bg-terminal-blue/20 dark:hover:bg-terminal-green/20 transition-colors"

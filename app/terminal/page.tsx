@@ -97,8 +97,7 @@ export default function TerminalPage() {
     social: () => [
       "Social Media:",
       "  • GitHub: github.com/codeRisshi25",
-      "  • LinkedIn: linkedin.com/in/risshirajsen",
-      "  • Twitter: twitter.com/risshirajsen",
+      "  • LinkedIn: linkedin.com/in/risshi"
     ],
     clear: () => {
       setHistory([])
@@ -403,7 +402,8 @@ export default function TerminalPage() {
     e.preventDefault()
     if (!input.trim()) return
 
-    const newHistory = [...history, `$ ${input}`]
+    const newHistory = [...history, `<span class="text-terminal-green">$ ${input}</span>`]
+
 
     const [cmd, ...args] = input.trim().split(" ")
     const command = cmd.toLowerCase()
@@ -486,13 +486,13 @@ export default function TerminalPage() {
             ))}
 
             <form onSubmit={handleSubmit} className="flex items-center mt-2">
-              <span className="text-terminal-green mr-2">$</span>
+              <span className="text-terminal-green mr-2 opacity-90">$</span>
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 bg-transparent outline-none text-foreground"
+                className="flex-1 bg-transparent outline-none text-terminal-green"
                 autoFocus
               />
             </form>

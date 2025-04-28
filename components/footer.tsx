@@ -91,7 +91,7 @@ export default function Footer() {
                 <span className="sr-only">GitHub</span>
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/code"
+                href="https://linkedin.com/in/risshi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-terminal-blue/10 text-terminal-blue hover:bg-terminal-blue/20 transition-colors"

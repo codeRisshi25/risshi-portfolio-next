@@ -43,8 +43,8 @@
     --terminal-dark-blue: 220 65% 35%;
     --terminal-light-blue: 200 75% 55%;
 
-    /* Keep terminal green for terminal interface in light mode */
-    --terminal-green: 142 76% 36%;
+    /* Update the terminal-green color to be more neon */
+    --terminal-green: 142 100% 55%; /* Even more saturated and brighter neon green */
   }
 
   .dark {
@@ -156,14 +156,17 @@
   /* Terminal specific shadow glow classes */
   .terminal-shadow-glow-sm {
     @apply shadow-[0_0_10px_rgba(0,200,100,0.3)];
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.3), inset 0 0 8px rgba(0, 255, 128, 0.1);
   }
 
   .terminal-shadow-glow-md {
     @apply shadow-[0_0_20px_rgba(0,200,100,0.5)];
+    box-shadow: 0 0 25px rgba(0, 255, 128, 0.5), inset 0 0 12px rgba(0, 255, 128, 0.2);
   }
 
   .terminal-shadow-glow-lg {
     @apply shadow-[0_0_30px_rgba(0,200,100,0.7)];
+    box-shadow: 0 0 40px rgba(0, 255, 128, 0.7), inset 0 0 20px rgba(0, 255, 128, 0.3);
   }
 
   .grid-pattern {
@@ -179,6 +182,7 @@
 
   .terminal {
     @apply font-mono bg-card border border-terminal-green/30 rounded-lg p-4 terminal-shadow-glow-sm;
+    text-shadow: 0 0 5px rgba(0, 255, 128, 0.7);
   }
 
   .terminal-header {
@@ -192,6 +196,18 @@
   .terminal-prompt::before {
     content: "> ";
     @apply text-terminal-green;
+    text-shadow: 0 0 8px rgba(0, 255, 128, 0.8);
+  }
+
+  .terminal input {
+    @apply text-terminal-green;
+    text-shadow: 0 0 5px rgba(0, 255, 128, 0.4);
+  }
+
+  .terminal input::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
   }
 
   .card-minimal {
@@ -334,6 +350,12 @@
   50% {
     opacity: 0.5;
   }
+}
+
+/* Add blinking cursor effect */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Custom scrollbar */
