@@ -6,6 +6,7 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import CursorGlow from "@/components/cursor-glow"
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: "Risshi Raj Sen | Backend Developer",
@@ -36,6 +37,7 @@ export default function RootLayout({
           </div>
         </ThemeProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
