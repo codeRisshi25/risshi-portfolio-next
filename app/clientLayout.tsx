@@ -22,11 +22,31 @@ export default function ClientLayout({
   // Add metadata for SEO
   useEffect(() => {
     document.title = "Risshi Raj Sen - Backend Developer & AI Enthusiast"
+    
+    // Meta description
     const metaDescription = document.createElement("meta")
     metaDescription.name = "description"
     metaDescription.content =
       "Portfolio website of Risshi Raj Sen, showcasing skills, projects, and experience in backend development and AI."
     document.head.appendChild(metaDescription)
+    
+    // Favicon
+    const favicon = document.createElement("link")
+    favicon.rel = "icon"
+    favicon.href = "/favicon.ico"
+    document.head.appendChild(favicon)
+    
+    // Open Graph image
+    const ogImage = document.createElement("meta")
+    ogImage.setAttribute("property", "og:image")
+    ogImage.content = "me.jpg"
+    document.head.appendChild(ogImage)
+    
+    // Twitter card
+    const twitterCard = document.createElement("meta")
+    twitterCard.name = "twitter:card"
+    twitterCard.content = "summary_large_image"
+    document.head.appendChild(twitterCard)
   }, [])
 
   if (!mounted) {

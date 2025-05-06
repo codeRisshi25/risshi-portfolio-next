@@ -125,9 +125,9 @@ export default function Home() {
   return (
     <main className="min-h-screen relative overflow-hidden bg-background cursor-glow">
       <BackgroundAnimation />
-      <div className="fixed top-4 right-4 z-50 font-mono text-xs text-terminal-blue dark:text-terminal-green bg-background/80 px-3 py-1 rounded-full border border-terminal-blue/30 dark:border-terminal-green/30 backdrop-blur-sm hidden sm:block">
+      <div className="fixed top-20 right-4 z-50 font-mono text-xs text-terminal-blue dark:text-terminal-green bg-background/80 px-3 py-1 rounded-full border border-terminal-blue/30 dark:border-terminal-green/30 backdrop-blur-sm hidden sm:block">
         <span className="inline-block w-2 h-2 bg-terminal-cyan dark:bg-terminal-green rounded-full mr-2 animate-pulse"></span>
-        System Online | Scroll Position: {scrollY.toFixed(0)}px
+        System Online | Scroll Position: {scrollY.toFixed(10)}px
       </div>
 
       <div className="container mx-auto px-4 py-8 relative z-10">

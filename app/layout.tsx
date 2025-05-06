@@ -12,6 +12,24 @@ export const metadata: Metadata = {
   title: "Risshi Raj Sen | Backend Developer",
   description:
     "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+  openGraph: {
+    title: "Risshi Raj Sen | Backend Developer",
+    description: "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+    images: [
+      {
+        url: "/me.jpeg",
+        width: 800,
+        height: 600,
+        alt: "Risshi Raj Sen",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Risshi Raj Sen | Backend Developer",
+    description: "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+    images: ["/me.jpeg"],
+  },
 }
 
 export default function RootLayout({

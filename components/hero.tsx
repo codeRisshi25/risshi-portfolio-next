@@ -89,20 +89,15 @@ export default function Hero() {
             of the stack, and constantly leveling up my skills.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 relative z-10">
             <Button
               asChild
               size="lg"
               className="bg-gradient-to-r from-terminal-blue to-terminal-cyan hover:from-terminal-cyan hover:to-terminal-blue dark:from-terminal-green dark:to-terminal-cyan dark:hover:from-terminal-cyan dark:hover:to-terminal-green transition-all duration-300 shadow-glow-sm hover:shadow-glow-md"
             >
               <Link
-                href="#projects"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-                }}
-              >
-                Explore Projects <ArrowRight className="ml-2 h-4 w-4" />
+              href="#projects">
+              Explore Projects <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
 
@@ -113,16 +108,19 @@ export default function Hero() {
               className="border-terminal-blue/50 dark:border-terminal-green/50 text-terminal-blue dark:text-terminal-green hover:bg-terminal-blue/10 dark:hover:bg-terminal-green/10 transition-all duration-300"
             >
               <Link
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-                }}
+              href="#contact"
+              onClick={(e) => {
+              const contactElement = document.getElementById("contact");
+              if (contactElement) {
+              e.preventDefault();
+              contactElement.scrollIntoView({ behavior: "smooth" });
+              }
+              }}
               >
-                Get in Touch
+              Get in Touch
               </Link>
             </Button>
-          </div>
+            </div>
 
           <div className="pt-4 lg:pt-8 flex items-center space-x-4 text-sm text-muted-foreground">
             <div className="flex items-center">

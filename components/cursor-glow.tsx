@@ -74,23 +74,25 @@ export default function CursorGlow() {
   return (
     <>
       <div
-        className="cursor-dot pointer-events-none"
+        className="cursor-dot pointer-events-none fixed z-50 rounded-full transition-[width,height] duration-200 ease-out"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
           width: clicked ? "12px" : linkHovered ? "10px" : "8px",
           height: clicked ? "12px" : linkHovered ? "10px" : "8px",
-          backgroundColor: theme === "dark" ? "rgba(0, 200, 100, 0.8)" : "rgba(0, 120, 255, 0.8)",
+          backgroundColor: theme === "dark" ? "rgba(50, 255, 150, 0.9)" : "rgba(31, 102, 173, 0.9))",
+          transform: "translate(-50%, -50%)",
         }}
       />
       <div
-        className="cursor-ring pointer-events-none"
+        className="cursor-ring pointer-events-none fixed z-40 rounded-full transition-[width,height] duration-300 ease-out"
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
           width: clicked ? "30px" : linkHovered ? "50px" : "40px",
           height: clicked ? "30px" : linkHovered ? "50px" : "40px",
-          backgroundColor: theme === "dark" ? "rgba(0, 200, 100, 0.15)" : "rgba(0, 120, 255, 0.15)",
+          backgroundColor: theme === "dark" ? "rgba(50, 255, 150, 0.25)" : "rgba(0, 200, 100, 0.25)",
+          transform: "translate(-50%, -50%)",
         }}
       />
     </>
