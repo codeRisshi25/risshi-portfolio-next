@@ -459,12 +459,6 @@ export default function TerminalPage() {
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Website
           </Button>
-
-          <div className="flex items-center">
-            <div className="h-3 w-3 rounded-full bg-red-500 mr-2"></div>
-            <div className="h-3 w-3 rounded-full bg-yellow-500 mr-2"></div>
-            <div className="h-3 w-3 rounded-full bg-green-500"></div>
-          </div>
         </div>
 
         <div className="terminal">
