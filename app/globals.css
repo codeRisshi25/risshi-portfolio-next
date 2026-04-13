@@ -56,7 +56,36 @@ body {
   color: var(--tp);
   padding: 18px;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
   /* Font is applied using next/font/google via Tailwind/globals in layout.tsx */
+}
+
+/* Base background SVGs for whole page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: 
+    radial-gradient(ellipse at 15% 50%, rgba(155,142,240,0.1), transparent 50%),
+    radial-gradient(ellipse at 85% 30%, rgba(139,224,192,0.1), transparent 50%);
+}
+
+.bg-graphics {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-graphics svg {
+  position: absolute;
+  opacity: 0.05;
+  stroke: rgba(255,255,255,0.7);
 }
 
 .grain {
@@ -66,7 +95,7 @@ body {
 }
 
 .grid-wrapper {
-  display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto;gap:13px;max-width:1300px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(12,1fr);grid-auto-flow: dense;grid-template-rows:auto;gap:13px;max-width:1080px;margin:30px auto;
 }
 
 .card-container {
@@ -136,7 +165,7 @@ body {
 .feat-btn-ghost:hover { background:rgba(255,255,255,0.1); }
 
 /* ── SKILLS ── */
-.skills { grid-column:span 5;padding:26px;overflow:hidden; }
+.skills { grid-column:span 7;padding:26px;overflow:hidden; }
 .mq-wrap { overflow:hidden;margin:0 -26px; }
 .mq { display:flex;gap:9px;width:max-content;padding:0 26px; }
 .mq1 { animation:mq1 16s linear infinite; }
@@ -149,7 +178,7 @@ body {
 .si { font-size:14px; }
 
 /* ── STATUS ── */
-.status { grid-column:span 3;padding:24px;background:linear-gradient(155deg,#0f1510,#111114);display:flex;flex-direction:column;gap:14px; }
+.status { grid-column:span 5;padding:24px;background:linear-gradient(155deg,#0f1510,#111114);display:flex;flex-direction:column;gap:14px; }
 .sdot { width:7px;height:7px;border-radius:50%;background:#4ecb87;box-shadow:0 0 0 3px rgba(78,203,135,0.12);animation:p 2.5s ease-in-out infinite;flex-shrink:0; }
 .srow { display:flex;align-items:center;gap:9px; }
 .st { font-size:13px;font-weight:600;color:var(--tp); }
@@ -192,8 +221,8 @@ body {
 .cv-link:hover { color:var(--accent-portfolio); }
 
 /* ── SOCIALS ── */
-.socials { grid-column:span 3;padding:24px; }
-.sg { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px; }
+.socials { grid-column:span 8;padding:24px; }
+.sg { display:grid;grid-template-columns:repeat(4, 1fr);gap:8px;margin-top:14px; }
 .si-card { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;border-radius:16px;background:#0d0d11;border:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:all .2s;text-decoration:none; }
 .si-card:hover { background:rgba(155,142,240,0.08);border-color:rgba(155,142,240,0.22);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.4); }
 .si-ico { font-size:18px;line-height:1; }
@@ -201,7 +230,7 @@ body {
 .si-card:hover .si-nm { color:#c4b8ff; }
 
 /* ── JP ── */
-.jp { grid-column:span 2;padding:20px;background:linear-gradient(145deg,#160f1c,#111114);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px; }
+.jp { grid-column:span 4;padding:20px;background:linear-gradient(145deg,#160f1c,#111114);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px; }
 .jp-k { font-size:52px;font-weight:300;color:var(--tp);line-height:1;letter-spacing:-2px;opacity:.88; }
 .jp-r { font-size:9px;letter-spacing:2.5px;color:var(--tm);text-transform:uppercase;margin-top:6px; }
 .jp-m { font-size:11.5px;color:var(--ts);font-style:italic;margin-top:2px; }

@@ -1,11 +1,28 @@
+"use client";
+
 import Clock from "@/components/Clock";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 18 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.25, 0.46, 0.45, 0.94],
+      delay: i * 0.08,
+    }
+  })
+};
 
 export default function Home() {
   return (
     <main className="grid-wrapper">
 
       {/* HERO — dominant, spans 5 cols × 2 rows */}
-      <div className="card-container hero">
+      <motion.div custom={0} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container hero">
         <div className="animated-border"></div>
         <div className="grain"></div>
         <div className="hero-inner">
@@ -13,10 +30,20 @@ export default function Home() {
             <div className="avail">
               <div className="adot"></div> Open to opportunities
             </div>
-            <h1>
-              こんにちは,<br />
-              I&apos;m <span className="name">Risshi</span> ✦
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+              <h1>
+                こんにちは,<br />
+                I&apos;m <span className="name">Risshi</span> ✦
+              </h1>
+              <Image 
+                src="/profile.png" 
+                alt="Risshi avatar" 
+                width={100} 
+                height={100} 
+                className="object-cover rounded-full grayscale opacity-90 contrast-125 mix-blend-luminosity" 
+                style={{ border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)', marginTop: '-10px' }}
+              />
+            </div>
             <p>
               Backend engineer who renders worlds in 3D and reads manga with a
               dictionary open. Building things that scale.
@@ -50,10 +77,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* FEATURED PROJECT — latest work */}
-      <div className="card-container featured">
+      <motion.div custom={1} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container featured">
         <div className="grain" style={{ opacity: 0.015 }}></div>
         <div className="feat-scene">
           <div className="feat-bg"></div>
@@ -74,10 +101,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* SKILLS */}
-      <div className="card-container skills">
+      <motion.div custom={2} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container skills">
         <div className="inner">
           <div className="lbl">Skills</div>
         </div>
@@ -116,10 +143,10 @@ export default function Home() {
           </div>
         </div>
         <div className="grain"></div>
-      </div>
+      </motion.div>
 
       {/* STATUS */}
-      <div className="card-container status">
+      <motion.div custom={3} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container status">
         <div className="grain"></div>
         <div className="inner" style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
           <div className="lbl">Status</div>
@@ -136,10 +163,10 @@ export default function Home() {
             <div className="clksub">IST · UTC+5:30</div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* EXPERIENCE — large, spans 7 cols × 2 rows */}
-      <div className="card-container experience">
+      <motion.div custom={4} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container experience">
         <div className="grain"></div>
         <div className="inner">
           <div className="lbl">Experience</div>
@@ -256,10 +283,10 @@ export default function Home() {
 
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* CONTACT — animated border, secondary */}
-      <div className="card-container contact">
+      <motion.div custom={5} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container contact">
         <div className="contact-animated-border"></div>
         <div className="grain"></div>
         <div
@@ -281,10 +308,10 @@ export default function Home() {
             <div className="cv-link">↓ Download CV</div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* SOCIALS */}
-      <div className="card-container socials">
+      <motion.div custom={6} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container socials">
         <div className="grain"></div>
         <div className="inner">
           <div className="lbl">Find me</div>
@@ -307,10 +334,10 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* JP ACCENT */}
-      <div className="card-container jp">
+      <motion.div custom={7} variants={cardVariants} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-20px" }} className="card-container jp">
         <div className="grain"></div>
         <div
           className="inner"
@@ -320,8 +347,9 @@ export default function Home() {
           <div className="jp-r">Sōzō</div>
           <div className="jp-m">&quot;Creation&quot;</div>
         </div>
-      </div>
+      </motion.div>
 
     </main>
   );
 }
+
