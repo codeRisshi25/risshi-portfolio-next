@@ -4,6 +4,7 @@ import Clock from "@/components/Clock";
 import StatCounter from "@/components/StatCounter";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -19,6 +20,23 @@ const cardVariants = {
 };
 
 export default function Home() {
+  const [commits, setCommits] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.github.com/search/commits?q=author:codeRisshi25&per_page=1", {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.total_count === "number") {
+          setCommits(data.total_count);
+        }
+      })
+      .catch((err) => console.error("Error fetching commits:", err));
+  }, []);
+
   return (
     <main className="grid-wrapper">
 
@@ -49,13 +67,12 @@ export default function Home() {
               </div>
             </div>
             <p>
-              Backend engineer who renders worlds in 3D and reads manga with a
-              dictionary open. Building things that scale.
+Backend engineer merging agentic AI systems with Japanese-inspired minimalism.
             </p>
             <div className="htags">
               <span className="htag ht-p">Backend Dev</span>
-              <span className="htag ht-g">3D Artist</span>
-              <span className="htag ht-o">BTech CSE</span>
+              <span className="htag ht-g">Agentic AI</span>
+              <span className="htag ht-o">3d Art</span>
               <span className="htag ht-pk">日本語</span>
             </div>
             <div className="stats-row">
@@ -64,11 +81,15 @@ export default function Home() {
                 <div className="l">Internships</div>
               </div>
               <div className="stat">
-                <StatCounter target={15} suffix="+" duration={1100} />
-                <div className="l">Projects</div>
+                {commits !== null ? (
+                  <StatCounter target={commits} suffix="+" duration={1100} />
+                ) : (
+                  <div className="n" style={{ opacity: 0.5 }}>--</div>
+                )}
+                <div className="l">Commits</div>
               </div>
               <div className="stat">
-                <div className="n">N3</div>
+                <div className="n">N5</div>
                 <div className="l">Japanese</div>
               </div>
             </div>
@@ -183,26 +204,21 @@ export default function Home() {
               <div className="ei-body">
                 <div className="ei-top">
                   <div>
-                    <div className="ei-role">Backend Engineering Intern</div>
+                    <div className="ei-role">Software Development Engineer Intern</div>
                     <div className="ei-co">
-                      Acme Technologies <span className="ei-co-dot"></span>
-                      <span className="ei-type">Full-time internship</span>
+                      Fidelity International <span className="ei-co-dot"></span>
+                      <span className="ei-type">Incoming (1 Year)</span>
                     </div>
                   </div>
-                  <div className="ei-date">Jun – Aug 2024</div>
+                  <div className="ei-date">Aug 2026 – Aug 2027</div>
                 </div>
                 <div className="ei-desc">
-                  Built and optimized REST APIs serving 50k+ daily requests. Reduced
-                  average response latency by 40% through strategic Redis caching and
-                  query indexing. Collaborated with a 6-person backend team in an agile
-                  sprint cycle.
+                  Incoming 1-year Software Development Engineering internship focusing on backend systems and cloud infrastructure.
                 </div>
                 <div className="ei-tags">
                   <span className="etag">Python</span>
-                  <span className="etag">FastAPI</span>
-                  <span className="etag">Redis</span>
-                  <span className="etag">PostgreSQL</span>
-                  <span className="etag">Docker</span>
+                  <span className="etag">Backend</span>
+                  <span className="etag">AWS</span>
                 </div>
               </div>
             </div>
@@ -226,18 +242,16 @@ export default function Home() {
               <div className="ei-body">
                 <div className="ei-top">
                   <div>
-                    <div className="ei-role">3D Visualization Intern</div>
+                    <div className="ei-role">Software Development Intern</div>
                     <div className="ei-co" style={{ color: "#8be0c0" }}>
-                      Studio Nōva <span className="ei-co-dot" style={{ background: "#8be0c0" }}></span>
-                      <span className="ei-type" style={{ color: "var(--tm)" }}>Part-time internship</span>
+                      Empty Cup Ltd. <span className="ei-co-dot" style={{ background: "#8be0c0" }}></span>
+                      <span className="ei-type" style={{ color: "var(--tm)" }}>Remote</span>
                     </div>
                   </div>
-                  <div className="ei-date">Dec 2023 – Feb 2024</div>
+                  <div className="ei-date">Jun – Aug 2025</div>
                 </div>
                 <div className="ei-desc">
-                  Created product visualization assets and animated scene renders for
-                  client campaigns across 3 product launches. Delivered 20+ production-ready
-                  assets using Blender and Substance Painter under tight deadlines.
+                  Implemented rate limiting for computationally intensive API endpoints within a Svelte and Flask monorepo. Built collaboration features enabling multi-user project workflows, and automated quotation and billing processes while resolving critical backend defects across multiple modules.
                 </div>
                 <div className="ei-tags">
                   <span
@@ -248,7 +262,7 @@ export default function Home() {
                       borderColor: "rgba(139,224,192,0.16)",
                     }}
                   >
-                    Blender
+                    Python
                   </span>
                   <span
                     className="etag"
@@ -258,7 +272,7 @@ export default function Home() {
                       borderColor: "rgba(139,224,192,0.16)",
                     }}
                   >
-                    Substance 3D
+                    Flask
                   </span>
                   <span
                     className="etag"
@@ -268,7 +282,7 @@ export default function Home() {
                       borderColor: "rgba(139,224,192,0.16)",
                     }}
                   >
-                    Rendering
+                    Svelte
                   </span>
                   <span
                     className="etag"
@@ -278,7 +292,17 @@ export default function Home() {
                       borderColor: "rgba(139,224,192,0.16)",
                     }}
                   >
-                    Lighting
+                    API Design
+                  </span>
+                  <span
+                    className="etag"
+                    style={{
+                      background: "rgba(139,224,192,0.08)",
+                      color: "#8be0c0",
+                      borderColor: "rgba(139,224,192,0.16)",
+                    }}
+                  >
+                    Monorepo
                   </span>
                 </div>
               </div>

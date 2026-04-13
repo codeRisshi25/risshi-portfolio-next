@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Risshi" }],
   openGraph: {
     title: "Risshi | Backend Developer & 3D Artist",
-    description: "Backend engineer who renders worlds in 3D and reads manga with a dictionary open. Building things that scale.",
+    description: "Backend engineer merging agentic AI systems with Japanese-inspired minimalism.",
     url: "https://risshi-portfolio.com",
     siteName: "Risshi Portfolio",
     images: [
