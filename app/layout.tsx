@@ -1,62 +1,45 @@
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import CursorGlow from "@/components/cursor-glow"
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/react"
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Risshi Raj Sen | Backend Developer",
-  description:
-    "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+  title: "Risshi | Backend Developer & 3D Artist",
+  description: "Portfolio of Risshi, a Backend Developer and 3D Artist specializing in Rust, Python, and scalable architectures.",
+  keywords: ["Backend Developer", "3D Artist", "Rust", "Python", "Portfolio", "Risshi"],
+  authors: [{ name: "Risshi" }],
   openGraph: {
-    title: "Risshi Raj Sen | Backend Developer",
-    description: "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+    title: "Risshi | Backend Developer & 3D Artist",
+    description: "Backend engineer who renders worlds in 3D and reads manga with a dictionary open. Building things that scale.",
+    url: "https://risshi-portfolio.com",
+    siteName: "Risshi Portfolio",
     images: [
       {
-        url: "/me.jpeg",
-        width: 800,
-        height: 600,
-        alt: "Risshi Raj Sen",
+        url: "https://risshi-portfolio.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Risshi Portfolio",
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Risshi Raj Sen | Backend Developer",
-    description: "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
-    images: ["/me.jpeg"],
+    title: "Risshi | Backend Developer & 3D Artist",
+    description: "Backend engineer who renders worlds in 3D and building things that scale.",
   },
-}
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
-          <CursorGlow />
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <div className="flex-1">{children}</div>
-            <Footer />
-          </div>
-        </ThemeProvider>
-        <SpeedInsights />
-        <Analytics />
-      </body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
-  )
+  );
 }
