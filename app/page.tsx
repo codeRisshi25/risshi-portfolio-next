@@ -89,15 +89,15 @@ Backend engineer merging agentic AI systems with Japanese-inspired minimalism.
                 <div className="l">Commits</div>
               </div>
               <div className="stat">
-                <div className="n">N5</div>
-                <div className="l">Japanese</div>
+                <StatCounter target={500} suffix="+" duration={1000} />
+                <div className="l">Cups of Cofee</div>
               </div>
             </div>
           </div>
           <div className="av-row">
             <div className="av-info">
-              <p>Risshi · B.Tech CSE</p>
-              <span>One commit, one render, one kanji at a time</span>
+              <p>Risshi · B.Tech CSE - Bennett University</p>
+              <span>8.70 CGPA<br/>One commit, one render, one kanji at a time</span>
             </div>
           </div>
         </div>
@@ -114,14 +114,14 @@ Backend engineer merging agentic AI systems with Japanese-inspired minimalism.
           <div className="feat-content">
             <div className="feat-lbl">Latest project</div>
             <div className="feat-badge">⚡ Just shipped</div>
-            <h2>Distributed Task Queue</h2>
+            <h2>UrbanPulse Backend</h2>
             <p>
-              Async job processing engine built in Rust with Redis-backed queues
-              and real-time monitoring.
+              Real-time ride-sharing backend with live driver matching, GPS tracking, and spatial fare calculation. Powered by Node.js, Redis GEO, and PostGIS.
             </p>
             <div className="feat-links">
-              <button className="feat-btn feat-btn-primary">View on GitHub →</button>
-              <button className="feat-btn feat-btn-ghost">Live demo</button>
+              <a href="https://github.com/codeRisshi25/urbanpulse-backend" target="_blank" rel="noopener noreferrer" className="feat-btn feat-btn-primary" style={{ textDecoration: 'none' }}>
+                View on GitHub →
+              </a>
             </div>
           </div>
         </div>
