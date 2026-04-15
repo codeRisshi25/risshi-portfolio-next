@@ -1,62 +1,68 @@
-import type React from "react"
-import type { Metadata } from "next"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import CursorGlow from "@/components/cursor-glow"
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/react"
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import ScrollTop from "@/components/ScrollTop";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Risshi Raj Sen | Backend Developer",
-  description:
-    "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+  title: "Risshi | Backend Developer & 3D Artist",
+  description: "Portfolio of Risshi, a Backend Developer and 3D Artist specializing in Rust, Python, and scalable architectures.",
+  keywords: ["Backend Developer", "3D Artist", "Rust", "Python", "Portfolio", "Risshi"],
+  authors: [{ name: "Risshi" }],
   openGraph: {
-    title: "Risshi Raj Sen | Backend Developer",
-    description: "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
+    title: "Risshi | Backend Developer & 3D Artist",
+    description: "Backend engineer merging agentic AI systems with Japanese-inspired minimalism.",
+    url: "https://risshi-portfolio.com",
+    siteName: "Risshi Portfolio",
     images: [
       {
-        url: "/me.jpeg",
-        width: 800,
-        height: 600,
-        alt: "Risshi Raj Sen",
+        url: "https://risshi-portfolio.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Risshi Portfolio",
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Risshi Raj Sen | Backend Developer",
-    description: "Portfolio of Risshi Raj Sen, a backend developer showcasing projects, skills, and expertise in server-side technologies.",
-    images: ["/me.jpeg"],
+    title: "Risshi | Backend Developer & 3D Artist",
+    description: "Backend engineer who renders worlds in 3D and building things that scale.",
   },
-}
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true} disableTransitionOnChange>
-          <CursorGlow />
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <div className="flex-1">{children}</div>
-            <Footer />
-          </div>
-        </ThemeProvider>
-        <SpeedInsights />
-        <Analytics />
+    <html lang="en">
+      <body className={inter.className}>
+        <ScrollTop />
+        <div className="bg-graphics">
+          {/* Topographic contours */}
+          <svg className="topo" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ top: '-10%', left: '-10%', transform: 'scale(1.5)', strokeWidth: '1.5' }}>
+            <path fill="none" d="M0,200 Q150,150 300,250 T600,200 T900,250 T1200,100" />
+            <path fill="none" d="M0,230 Q160,180 320,280 T640,230 T960,280 T1200,130" />
+            <path fill="none" d="M0,260 Q170,210 340,310 T680,260 T1020,310 T1200,160" />
+            <path fill="none" d="M0,290 Q180,240 360,340 T720,290 T1080,340 T1200,190" />
+            <path fill="none" d="M0,320 Q190,270 380,370 T760,320 T1140,370 T1200,220" />
+          </svg>
+          {/* Tech dot grid / isometric */}
+          <svg className="grid-bg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="smallGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#smallGrid)" />
+          </svg>
+        </div>
+        {children}
       </body>
     </html>
-  )
+  );
 }
