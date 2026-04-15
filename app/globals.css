@@ -259,7 +259,7 @@ body::before {
   85% { opacity: 0.6; }
   100% { transform: translateY(-100px) rotate(180deg); opacity: 0; }
 }
-.ctab { display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:100px;background:var(--accent-portfolio);color:#fff;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:20px;transition:all .2s;width:fit-content;letter-spacing:.1px; }
+.ctab { display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:100px;background:var(--accent-portfolio);color:#fff;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:20px;transition:all .2s;width:fit-content;letter-spacing:.1px;text-decoration:none; }
 .ctab:hover { background:#8a7de0;transform:translateY(-2px);box-shadow:0 8px 24px rgba(155,142,240,0.3); }
 .ctab:active { transform:translateY(0); }
 .cv-link { display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ts);margin-top:12px;cursor:pointer;transition:color .2s;width:fit-content;padding:0;text-decoration:none; }

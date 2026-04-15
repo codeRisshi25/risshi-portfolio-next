@@ -478,7 +478,9 @@ export default function Home() {
             </p>
           </div>
           <div>
-            <button className="ctab">Say hello →</button>
+            <a className="ctab" href="mailto:risshirajsen@gmail.com">
+              Say hello →
+            </a>
             <a
               className="cv-link"
               href="/resume.pdf"
