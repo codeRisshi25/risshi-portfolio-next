@@ -80,14 +80,7 @@ export default function Home() {
             <div className="avail">
               <div className="adot"></div> Open to opportunities
             </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: "0.5rem",
-              }}
-            >
+            <div className="hero-head">
               <h1>
                 こんにちは,
                 <br />
