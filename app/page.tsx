@@ -4,17 +4,17 @@ import Clock from "@/components/Clock";
 import StatCounter from "@/components/StatCounter";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 26 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.55,
-      ease: [0.25, 0.46, 0.45, 0.94],
-      delay: i * 0.08,
+      duration: 0.9,
+      ease: [0.22, 0.61, 0.36, 1],
+      delay: i * 0.11,
     },
   }),
 };
@@ -41,6 +41,24 @@ const row2 = [
   { name: "Japanese N5", slug: "japanese" },
 ];
 
+function SkillPill({ name, slug }: { name: string; slug: string }) {
+  return (
+    <div className="sp">
+      {slug === "japanese" ? (
+        <span className="si">🎌</span>
+      ) : (
+        <img
+          src={`https://cdn.simpleicons.org/${slug}/475569`}
+          width={14}
+          height={14}
+          alt={name}
+        />
+      )}
+      {name}
+    </div>
+  );
+}
+
 export default function Home() {
   const [commits, setCommits] = useState<number | null>(null);
 
@@ -62,9 +80,34 @@ export default function Home() {
       .catch((err) => console.error("Error fetching commits:", err));
   }, []);
 
+  // Soft switch tick on hover — Web Audio API, no files needed
+  const playTick = useCallback(() => {
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 3200;
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.06);
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    const selector = "a, button, .htag, .si-card, .feat-btn, .ctab, .chip, .sp";
+    const handler = () => playTick();
+    const els = document.querySelectorAll(selector);
+    els.forEach((el) => el.addEventListener("mouseenter", handler));
+    return () => els.forEach((el) => el.removeEventListener("mouseenter", handler));
+  }, [playTick]);
+
   return (
     <main className="grid-wrapper">
-      {/* HERO — dominant, spans 5 cols × 2 rows */}
+      {/* HERO — dominant anchor, spans 7 cols × 2 rows */}
       <motion.div
         custom={0}
         variants={cardVariants}
@@ -76,38 +119,43 @@ export default function Home() {
         <div className="animated-border"></div>
         <div className="grain"></div>
         <div className="hero-inner">
-          <div>
+          <div className="hero-top">
             <div className="avail">
               <div className="adot"></div> Open to opportunities
             </div>
             <div className="hero-head">
-              <h1>
-                こんにちは,
-                <br />
-                I&apos;m <span className="name">Risshi</span> ✦
-              </h1>
+              <div className="hero-headline">
+                <h1>
+                  こんにちは,
+                  <br />
+                  I&apos;m <span className="name">Risshi</span>{" "}
+                  <span className="star">✦</span>
+                </h1>
+                <p>
+                  Backend engineer merging agentic AI systems with
+                  Japanese-inspired minimalism.
+                </p>
+              </div>
               <div className="hero-avatar-wrap">
                 <div className="avatar-animated-border"></div>
                 <Image
                   src="/profile.png"
                   alt="Risshi avatar"
-                  width={100}
-                  height={100}
-                  className="object-cover rounded-full grayscale opacity-90 contrast-125 mix-blend-luminosity"
-                  style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+                  width={130}
+                  height={130}
+                  className="object-cover rounded-full grayscale opacity-90 contrast-110"
                 />
               </div>
             </div>
-            <p>
-              Backend engineer merging agentic AI systems with Japanese-inspired
-              minimalism.
-            </p>
             <div className="htags">
-              <span className="htag ht-p">Backend Dev</span>
-              <span className="htag ht-g">Agentic AI</span>
-              <span className="htag ht-o">3d Art</span>
-              <span className="htag ht-pk">日本語</span>
+              <span className="htag">Backend Dev</span>
+              <span className="htag">Agentic AI</span>
+              <span className="htag">3D Art</span>
+              <span className="htag">日本語</span>
             </div>
+          </div>
+
+          <div className="hero-bottom">
             <div className="stats-row">
               <div className="stat">
                 <StatCounter target={2} duration={900} />
@@ -117,7 +165,7 @@ export default function Home() {
                 {commits !== null ? (
                   <StatCounter target={commits} suffix="+" duration={1100} />
                 ) : (
-                  <div className="n" style={{ opacity: 0.5 }}>
+                  <div className="n" style={{ opacity: 0.5  }}>
                     --
                   </div>
                 )}
@@ -125,144 +173,29 @@ export default function Home() {
               </div>
               <div className="stat">
                 <StatCounter target={500} suffix="+" duration={1000} />
-                <div className="l">Cups of Cofee</div>
+                <div className="l">Cups of Coffee</div>
               </div>
             </div>
-          </div>
-          <div className="av-row">
-            <div className="av-info">
-              <p>Risshi · B.Tech CSE - Bennett University</p>
-              <span>
-                8.70 CGPA
-                <br />
-                One commit, one render, one kanji at a time
-              </span>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* FEATURED PROJECT — latest work */}
-      <motion.div
-        custom={1}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-20px" }}
-        className="card-container featured"
-      >
-        <div className="grain" style={{ opacity: 0.015 }}></div>
-        <div className="feat-scene">
-          <div className="feat-bg"></div>
-          <div className="orb1"></div>
-          <div className="orb2"></div>
-          <div className="orb3"></div>
-          <div className="feat-content">
-            <div className="feat-lbl">Latest project</div>
-            <div className="feat-badge">⚡ Just shipped</div>
-            <h2>UrbanPulse Backend</h2>
-            <p>
-              Real-time ride-sharing backend with live driver matching, GPS
-              tracking, and spatial fare calculation. Powered by Node.js, Redis
-              GEO, and PostGIS.
-            </p>
-            <div className="feat-links">
-              <a
-                href="https://github.com/codeRisshi25/urbanpulse-backend"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="feat-btn feat-btn-primary"
-                style={{ textDecoration: "none" }}
-              >
-                View on GitHub →
-              </a>
+            <div className="av-row">
+              <div className="bu-logo-wrap">
+                <Image
+                  src="/image.png"
+                  alt="Bennett University"
+                  width={30}
+                  height={30}
+                  className="bu-logo"
+                />
+              </div>
+              <div className="av-info">
+                <p>B.Tech CSE — Bennett University · 2023-27</p>
+              </div>
+              <div className="cgpa-badge">8.70 CGPA</div>
             </div>
           </div>
         </div>
       </motion.div>
 
-      {/* SKILLS */}
-      <motion.div
-        custom={2}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-20px" }}
-        className="card-container skills"
-      >
-        <div className="inner">
-          <div className="lbl">Skills</div>
-        </div>
-        <div className="mq-wrap">
-          <div className="mq mq1">
-            {row1.map((item, i) => (
-              <div key={`r1a-${i}`} className="sp">
-                {item.slug === "japanese" ? (
-                  <span className="si">🎌</span>
-                ) : (
-                  <img
-                    src={`https://cdn.simpleicons.org/${item.slug}/c4b8ff`}
-                    width={14}
-                    height={14}
-                    alt={item.name}
-                  />
-                )}
-                {item.name}
-              </div>
-            ))}
-            {row1.map((item, i) => (
-              <div key={`r1b-${i}`} className="sp">
-                {item.slug === "japanese" ? (
-                  <span className="si">🎌</span>
-                ) : (
-                  <img
-                    src={`https://cdn.simpleicons.org/${item.slug}/c4b8ff`}
-                    width={14}
-                    height={14}
-                    alt={item.name}
-                  />
-                )}
-                {item.name}
-              </div>
-            ))}
-          </div>
-          <div className="mq mq2">
-            {row2.map((item, i) => (
-              <div key={`r2a-${i}`} className="sp">
-                {item.slug === "japanese" ? (
-                  <span className="si">🎌</span>
-                ) : (
-                  <img
-                    src={`https://cdn.simpleicons.org/${item.slug}/c4b8ff`}
-                    width={14}
-                    height={14}
-                    alt={item.name}
-                  />
-                )}
-                {item.name}
-              </div>
-            ))}
-            {row2.map((item, i) => (
-              <div key={`r2b-${i}`} className="sp">
-                {item.slug === "japanese" ? (
-                  <span className="si">🎌</span>
-                ) : (
-                  <img
-                    src={`https://cdn.simpleicons.org/${item.slug}/c4b8ff`}
-                    width={14}
-                    height={14}
-                    alt={item.name}
-                  />
-                )}
-                {item.name}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="grain"></div>
-      </motion.div>
-
-      {/* STATUS */}
+      {/* STATUS — compact right-rail card */}
       <motion.div
         custom={3}
         variants={cardVariants}
@@ -272,10 +205,7 @@ export default function Home() {
         className="card-container status"
       >
         <div className="grain"></div>
-        <div
-          className="inner"
-          style={{ display: "flex", flexDirection: "column", gap: "14px" }}
-        >
+        <div className="inner status-inner">
           <div className="lbl">Status</div>
           <div className="srow">
             <div className="sdot"></div>
@@ -284,17 +214,52 @@ export default function Home() {
               <div className="ss">Internships · Freelance</div>
             </div>
           </div>
-          <div className="chip">📍 India</div>
-          <div>
-            <Clock />
-            <div className="clksub">IST · UTC+5:30</div>
+          <div className="status-foot">
+            <div className="clock-block">
+              <Clock />
+              <div className="clksub">IST · UTC+5:30</div>
+            </div>
+            <div className="chip">📍 India</div>
           </div>
         </div>
       </motion.div>
 
-      {/* EXPERIENCE — large, spans 7 cols × 2 rows */}
+      {/* SKILLS — marquee */}
       <motion.div
         custom={4}
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-20px" }}
+        className="card-container skills"
+      >
+        <div className="inner">
+          <div className="lbl">Stack</div>
+        </div>
+        <div className="mq-wrap">
+          <div className="mq mq1">
+            {row1.map((item, i) => (
+              <SkillPill key={`r1a-${i}`} {...item} />
+            ))}
+            {row1.map((item, i) => (
+              <SkillPill key={`r1b-${i}`} {...item} />
+            ))}
+          </div>
+          <div className="mq mq2">
+            {row2.map((item, i) => (
+              <SkillPill key={`r2a-${i}`} {...item} />
+            ))}
+            {row2.map((item, i) => (
+              <SkillPill key={`r2b-${i}`} {...item} />
+            ))}
+          </div>
+        </div>
+        <div className="grain"></div>
+      </motion.div>
+
+      {/* EXPERIENCE — large, spans 7 cols × 2 rows */}
+      <motion.div
+        custom={2}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
@@ -318,7 +283,7 @@ export default function Home() {
                     </div>
                     <div className="ei-co">
                       Fidelity International <span className="ei-co-dot"></span>
-                      <span className="ei-type">Incoming (1 Year)</span>
+                      <span className="ei-type">Incoming · 1 Year</span>
                     </div>
                   </div>
                   <div className="ei-date">Aug 2026 – Aug 2027</div>
@@ -337,97 +302,32 @@ export default function Home() {
 
             <div className="ei">
               <div className="ei-spine">
-                <div
-                  className="ei-dot"
-                  style={{
-                    background: "#8be0c0",
-                    boxShadow:
-                      "0 0 0 3px rgba(139,224,192,0.12),0 0 12px rgba(139,224,192,0.15)",
-                  }}
-                ></div>
-                <div
-                  className="ei-line"
-                  style={{
-                    background:
-                      "linear-gradient(to bottom,rgba(139,224,192,0.2),rgba(139,224,192,0.03))",
-                  }}
-                ></div>
+                <div className="ei-dot"></div>
+                <div className="ei-line"></div>
               </div>
               <div className="ei-body">
                 <div className="ei-top">
                   <div>
                     <div className="ei-role">Software Development Intern</div>
-                    <div className="ei-co" style={{ color: "#8be0c0" }}>
-                      Empty Cup Ltd.{" "}
-                      <span
-                        className="ei-co-dot"
-                        style={{ background: "#8be0c0" }}
-                      ></span>
-                      <span className="ei-type" style={{ color: "var(--tm)" }}>
-                        Remote
-                      </span>
+                    <div className="ei-co">
+                      Empty Cup Ltd. <span className="ei-co-dot"></span>
+                      <span className="ei-type">Remote</span>
                     </div>
                   </div>
                   <div className="ei-date">Jun – Aug 2025</div>
                 </div>
                 <div className="ei-desc">
-                  Implemented rate limiting for computationally intensive API
-                  endpoints within a Svelte and Flask monorepo. Built
-                  collaboration features enabling multi-user project workflows,
-                  and automated quotation and billing processes while resolving
-                  critical backend defects across multiple modules.
+                  Implemented rate limiting for compute-intensive API endpoints
+                  in a Svelte + Flask monorepo. Built multi-user collaboration
+                  features, automated quotation and billing, and resolved
+                  critical backend defects across modules.
                 </div>
                 <div className="ei-tags">
-                  <span
-                    className="etag"
-                    style={{
-                      background: "rgba(139,224,192,0.08)",
-                      color: "#8be0c0",
-                      borderColor: "rgba(139,224,192,0.16)",
-                    }}
-                  >
-                    Python
-                  </span>
-                  <span
-                    className="etag"
-                    style={{
-                      background: "rgba(139,224,192,0.08)",
-                      color: "#8be0c0",
-                      borderColor: "rgba(139,224,192,0.16)",
-                    }}
-                  >
-                    Flask
-                  </span>
-                  <span
-                    className="etag"
-                    style={{
-                      background: "rgba(139,224,192,0.08)",
-                      color: "#8be0c0",
-                      borderColor: "rgba(139,224,192,0.16)",
-                    }}
-                  >
-                    Svelte
-                  </span>
-                  <span
-                    className="etag"
-                    style={{
-                      background: "rgba(139,224,192,0.08)",
-                      color: "#8be0c0",
-                      borderColor: "rgba(139,224,192,0.16)",
-                    }}
-                  >
-                    API Design
-                  </span>
-                  <span
-                    className="etag"
-                    style={{
-                      background: "rgba(139,224,192,0.08)",
-                      color: "#8be0c0",
-                      borderColor: "rgba(139,224,192,0.16)",
-                    }}
-                  >
-                    Monorepo
-                  </span>
+                  <span className="etag">Python</span>
+                  <span className="etag">Flask</span>
+                  <span className="etag">Svelte</span>
+                  <span className="etag">API Design</span>
+                  <span className="etag">Monorepo</span>
                 </div>
               </div>
             </div>
@@ -435,9 +335,49 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* CONTACT — animated border, secondary */}
+      {/* FEATURED PROJECT — latest work */}
       <motion.div
         custom={5}
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-20px" }}
+        className="card-container featured"
+      >
+        <div className="grain"></div>
+        <div className="feat-bg"></div>
+        <div className="orb1"></div>
+        <div className="feat-content">
+          <div className="feat-head">
+            <div className="feat-lbl">Latest project</div>
+            <div className="feat-badge">⚡ Just shipped</div>
+          </div>
+          <h2>UrbanPulse Backend</h2>
+          <p>
+            Real-time ride-sharing backend — live driver matching, GPS tracking,
+            and spatial fare calculation.
+          </p>
+          <div className="feat-tags">
+            <span className="feat-tag">Node.js</span>
+            <span className="feat-tag">Redis GEO</span>
+            <span className="feat-tag">PostGIS</span>
+          </div>
+          <div className="feat-links">
+            <a
+              href="https://github.com/codeRisshi25/urbanpulse-backend"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="feat-btn feat-btn-primary"
+            >
+              View on GitHub →
+            </a>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* CONTACT — CTA */}
+      <motion.div
+        custom={6}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
@@ -451,26 +391,17 @@ export default function Home() {
           <div className="sparkle s2">✦</div>
           <div className="sparkle s3">✦</div>
         </div>
-        <div
-          className="inner"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            height: "100%",
-          }}
-        >
+        <div className="inner contact-inner">
           <div>
             <div className="lbl">Contact</div>
             <h3>
               Let&apos;s build something <em>remarkable</em> together.
             </h3>
             <p>
-              Open to backend roles, 3D collabs, and Japanese study sessions. If
-              you&apos;re building something interesting — I want in.
+              Open to backend roles, 3D collabs, and Japanese study sessions.
             </p>
           </div>
-          <div>
+          <div className="contact-actions">
             <a className="ctab" href="mailto:risshirajsen@gmail.com">
               Say hello →
             </a>
@@ -487,7 +418,7 @@ export default function Home() {
 
       {/* SOCIALS */}
       <motion.div
-        custom={6}
+        custom={1}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
@@ -556,10 +487,8 @@ export default function Home() {
               <div className="si-nm">Twitter</div>
             </a>
             <a
-              className="si-card si-instagram"
-              href="https://www.instagram.com/__risshi/"
-              target="_blank"
-              rel="noopener noreferrer"
+              className="si-card si-email"
+              href="mailto:workrisshi@gmail.com"
             >
               <div className="si-ico">
                 <svg
@@ -569,10 +498,10 @@ export default function Home() {
                   height="20"
                   aria-hidden="true"
                 >
-                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5zm8.95 1.35a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 6.85A5.15 5.15 0 1 1 6.85 12 5.16 5.16 0 0 1 12 6.85zm0 1.8A3.35 3.35 0 1 0 15.35 12 3.35 3.35 0 0 0 12 8.65z" />
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
               </div>
-              <div className="si-nm">Instagram</div>
+              <div className="si-nm">Email</div>
             </a>
           </div>
         </div>
@@ -588,20 +517,11 @@ export default function Home() {
         className="card-container jp"
       >
         <div className="grain"></div>
-        <div
-          className="inner"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: "4px",
-          }}
-        >
+        <div className="inner jp-inner">
           <motion.svg
-            width="100"
-            height="60"
-            viewBox="0 0 100 60"
+            width="120"
+            height="68"
+            viewBox="0 0 120 68"
             style={{ overflow: "visible" }}
           >
             <motion.text
@@ -614,12 +534,12 @@ export default function Home() {
                 strokeDasharray: 300,
                 strokeDashoffset: 300,
                 fill: "transparent",
-                stroke: "rgba(240,239,234,0.8)",
+                stroke: "rgba(189,106,72,0.6)",
                 strokeWidth: 1.5,
               }}
               whileInView={{
                 strokeDashoffset: 0,
-                fill: "rgba(240,239,234,0.88)",
+                fill: "rgba(20,22,27,0.92)",
               }}
               viewport={{ once: true, margin: "-20px" }}
               transition={{ duration: 2.5, ease: "easeInOut", delay: 0.3 }}
@@ -627,8 +547,11 @@ export default function Home() {
               創造
             </motion.text>
           </motion.svg>
-          <div className="jp-r">Sōzō</div>
-          <div className="jp-m">&quot;Creation&quot;</div>
+          <div className="jp-divider"></div>
+          <div className="jp-text">
+            <div className="jp-r">Sōzō</div>
+            <div className="jp-m">&quot;Creation&quot; — to build from nothing</div>
+          </div>
         </div>
       </motion.div>
     </main>

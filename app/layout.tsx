@@ -1,9 +1,42 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Hanken_Grotesk,
+  JetBrains_Mono,
+  Instrument_Serif,
+} from "next/font/google";
 import ScrollTop from "@/components/ScrollTop";
 
-const inter = Inter({ subsets: ["latin"] });
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  adjustFontFallback: false,
+});
+
+const body = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+  adjustFontFallback: false,
+});
+
+const fontVars = `${display.variable} ${body.variable} ${mono.variable} ${serif.variable}`;
 
 export const metadata: Metadata = {
   title: "Risshi | Backend Developer & 3D Artist",
@@ -39,8 +72,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={fontVars}>
+      <body>
         <ScrollTop />
         <div className="bg-graphics">
           {/* Topographic contours */}
