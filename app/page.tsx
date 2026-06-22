@@ -19,26 +19,42 @@ const cardVariants = {
   }),
 };
 
-const row1 = [
-  { name: "TypeScript", slug: "typescript" },
-  { name: "Python", slug: "python" },
-  { name: "C++", slug: "cplusplus" },
-  { name: "React", slug: "react" },
-  { name: "Node.js", slug: "nodedotjs" },
-  { name: "Express", slug: "express" },
-  { name: "FastAPI", slug: "fastapi" },
-  { name: "Flask", slug: "flask" },
-];
-
-const row2 = [
-  { name: "PostgreSQL", slug: "postgresql" },
-  { name: "MongoDB", slug: "mongodb" },
-  { name: "Redis", slug: "redis" },
-  { name: "MySQL", slug: "mysql" },
-  { name: "Linux", slug: "linux" },
-  { name: "Git", slug: "git" },
-  { name: "Agentic AI", slug: "anthropic" },
-  { name: "Japanese N5", slug: "japanese" },
+const skillGroups = [
+  {
+    label: "Languages",
+    items: [
+      { name: "TypeScript", slug: "typescript" },
+      { name: "Python", slug: "python" },
+      { name: "C++", slug: "cplusplus" },
+    ],
+  },
+  {
+    label: "Backend",
+    items: [
+      { name: "Node.js", slug: "nodedotjs" },
+      { name: "Express", slug: "express" },
+      { name: "FastAPI", slug: "fastapi" },
+      { name: "Flask", slug: "flask" },
+    ],
+  },
+  {
+    label: "Data",
+    items: [
+      { name: "PostgreSQL", slug: "postgresql" },
+      { name: "MongoDB", slug: "mongodb" },
+      { name: "Redis", slug: "redis" },
+      { name: "MySQL", slug: "mysql" },
+    ],
+  },
+  {
+    label: "Tools & More",
+    items: [
+      { name: "Linux", slug: "linux" },
+      { name: "Git", slug: "git" },
+      { name: "React", slug: "react" },
+      { name: "Agentic AI", slug: "anthropic" },
+    ],
+  },
 ];
 
 function SkillPill({ name, slug }: { name: string; slug: string }) {
@@ -98,7 +114,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const selector = "a, button, .htag, .si-card, .feat-btn, .ctab, .chip, .sp";
+    const selector = "a, button, .htag, .si-card, .feat-btn, .ctab, .cv-btn, .chip, .sp";
     const handler = () => playTick();
     const els = document.querySelectorAll(selector);
     els.forEach((el) => el.addEventListener("mouseenter", handler));
@@ -195,62 +211,28 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* STATUS — compact right-rail card */}
-      <motion.div
-        custom={3}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-20px" }}
-        className="card-container status"
-      >
-        <div className="grain"></div>
-        <div className="inner status-inner">
-          <div className="lbl">Status</div>
-          <div className="srow">
-            <div className="sdot"></div>
-            <div>
-              <div className="st">Available now</div>
-              <div className="ss">Internships · Freelance</div>
-            </div>
-          </div>
-          <div className="status-foot">
-            <div className="clock-block">
-              <Clock />
-              <div className="clksub">IST · UTC+5:30</div>
-            </div>
-            <div className="chip">📍 India</div>
-          </div>
-        </div>
-      </motion.div>
 
       {/* SKILLS — marquee */}
       <motion.div
-        custom={4}
+        custom={2}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-20px" }}
         className="card-container skills"
       >
-        <div className="inner">
+        <div className="inner skills-inner">
           <div className="lbl">Stack</div>
-        </div>
-        <div className="mq-wrap">
-          <div className="mq mq1">
-            {row1.map((item, i) => (
-              <SkillPill key={`r1a-${i}`} {...item} />
-            ))}
-            {row1.map((item, i) => (
-              <SkillPill key={`r1b-${i}`} {...item} />
-            ))}
-          </div>
-          <div className="mq mq2">
-            {row2.map((item, i) => (
-              <SkillPill key={`r2a-${i}`} {...item} />
-            ))}
-            {row2.map((item, i) => (
-              <SkillPill key={`r2b-${i}`} {...item} />
+          <div className="sk-groups">
+            {skillGroups.map((g) => (
+              <div className="sk-group" key={g.label}>
+                <div className="sk-glbl">{g.label}</div>
+                <div className="sk-row">
+                  {g.items.map((item, i) => (
+                    <SkillPill key={`${g.label}-${i}`} {...item} />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -259,7 +241,7 @@ export default function Home() {
 
       {/* EXPERIENCE — large, spans 7 cols × 2 rows */}
       <motion.div
-        custom={2}
+        custom={3}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
@@ -333,11 +315,19 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <div className="exp-curves" aria-hidden="true">
+          <svg viewBox="0 0 600 120" preserveAspectRatio="none">
+            <path d="M0 96 C 150 40, 300 110, 450 60 S 600 30, 600 64" className="exc exc-sh" />
+            <path d="M0 96 C 150 40, 300 110, 450 60 S 600 30, 600 64" className="exc exc-hi" />
+            <path d="M0 112 C 180 70, 320 120, 470 86 S 600 64, 600 92" className="exc exc-sh" />
+            <path d="M0 112 C 180 70, 320 120, 470 86 S 600 64, 600 92" className="exc exc-hi" />
+          </svg>
+        </div>
       </motion.div>
 
       {/* FEATURED PROJECT — latest work */}
       <motion.div
-        custom={5}
+        custom={4}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
@@ -377,7 +367,7 @@ export default function Home() {
 
       {/* CONTACT — CTA */}
       <motion.div
-        custom={6}
+        custom={5}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
@@ -403,14 +393,15 @@ export default function Home() {
           </div>
           <div className="contact-actions">
             <a className="ctab" href="mailto:risshirajsen@gmail.com">
-              Say hello →
+              <span className="ctab-ico">✉</span> Say hello
+              <span className="ctab-arrow">→</span>
             </a>
             <a
-              className="cv-link"
+              className="cv-btn"
               href="/resume.pdf"
               download="Risshi-Raj-Sen-Resume.pdf"
             >
-              ↓ Download CV
+              <span className="cv-ico">↓</span> Download CV
             </a>
           </div>
         </div>
@@ -509,7 +500,7 @@ export default function Home() {
 
       {/* JP ACCENT */}
       <motion.div
-        custom={7}
+        custom={6}
         variants={cardVariants}
         initial="hidden"
         whileInView="show"
